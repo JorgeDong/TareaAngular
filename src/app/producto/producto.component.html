@@ -1,0 +1,61 @@
+<input type="text" [(ngModel)]="busqueda" (keydown.enter)="buscar()">
+<button type="button" class="btn btn-danger" (click)="buscar()"> Buscar Producto</button>
+<p *ngIf="(busqueda.length > 0)">Buscando: {{busqueda}}</p>
+<br>
+
+<div *ngIf="banderaBusqueda" class="alert alert-danger" role="alert">
+    Ningun producto concuerda con la busqueda
+</div>
+
+<input type="checkbox" (click)="cambiarSoloExistencia()"> 
+  <label for="cbox2">Solo en existencia</label>
+  <br>
+<input type="checkbox" (click)="ordenarPorPrecio()"> 
+  <label for="cbox2">Ordenar por precio (menor a mayor)</label>
+  <br>
+<input type="checkbox"(click)="cambiarExistencia()"> 
+  <label for="cbox2">Resaltar existencia mayor a 3</label>
+  <br>
+<div *ngIf="!banderaBusqueda" >
+    <div class="col-md-4" *ngFor="let producto of productosBusqueda">
+        <div *ngIf="(producto.existencia <= 3  && existencia) || !existencia" class="card flex-md-row mb-4 box-shadow h-md-250">
+          <div class="card-body d-flex flex-column align-items-start">
+            <h3 class="mb-0">
+              <a class="text-dark" href="#">{{producto.nombre}}</a>
+            </h3>
+            <p class="card-text mb-auto">
+                Precio: {{producto.precio}}<br>
+                Marca: {{producto.marca}}<br>
+                Descripción: {{producto.descripcion}}<br>
+                Existencia: {{producto.existencia}}
+            </p>
+        </div>
+          <img class="card-img-right flex-auto d-none d-md-block" 
+         style="width: 200px; height: 250px;" 
+          src="https://picsum.photos/id/{{producto.uid}}/100/100" 
+          data-holder-rendered="true">
+        </div>
+
+        <div *ngIf="producto.existencia > 3  && existencia"  style="background-color: lightgreen;" class="card flex-md-row mb-4 box-shadow h-md-250">
+            <div class="card-body d-flex flex-column align-items-start">
+              <h3 class="mb-0">
+                <a class="text-dark" href="#">{{producto.nombre}}</a>
+              </h3>
+              <p class="card-text mb-auto">
+                  Precio: {{producto.precio}}<br>
+                  Marca: {{producto.marca}}<br>
+                  Descripción: {{producto.descripcion}}<br>
+                  Existencia: {{producto.existencia}}
+              </p>
+          </div>
+            <img class="card-img-right flex-auto d-none d-md-block" 
+           style="width: 200px; height: 250px;" 
+            src="https://picsum.photos/id/{{producto.uid}}/100/100" 
+            data-holder-rendered="true">
+          </div>
+      </div> 
+      
+
+</div>
+
+
